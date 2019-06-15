@@ -1,0 +1,64 @@
+<div class="row"></div>
+<div class="row">
+  <h2>Cadastro de Animal</h2>
+</div>
+<div class="row">
+  <div class="col s12 m12 l1">
+    <mat-form-field>
+      <input matInput placeholder="id" type="number" [(ngModel)]="animalModel.id">
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l5">
+    <mat-form-field>
+      <input matInput placeholder="descricao" type="text" [(ngModel)]="animalModel.descricao">
+    </mat-form-field>
+  </div>
+
+  <div class="row footer-btn">
+    <div class="button-row col s12 ">
+      <button mat-raised-button color="grey" (click)="voltar()">Voltar</button>
+      <button *ngIf="!edit" mat-raised-button color="green" (click)="salvar()">Salvar</button>
+      <button *ngIf="edit" mat-raised-button color="green" (click)="salvar()">Atualizar</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+  
+  
+      <mat-table #table [dataSource]="dataSource" matSort class="table-striped">
+  
+        <ng-container matColumnDef="actionsColumn">
+          <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+  
+            <button mat-icon-button>
+              <mat-icon matTooltip="Editar" (click)="callUpdate(element.id)">edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon matTooltip="Excluir" (click)="deleteAnimal(element.id)">delete</mat-icon>
+            </button>
+  
+  
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="containerId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="descricao">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator #paginator [pageSize]="2" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
